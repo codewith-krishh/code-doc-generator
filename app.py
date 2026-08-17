@@ -23,11 +23,12 @@ code_input = st.text_area(
     ),
 )
 
-generate = st.button(
-    "Generate documentation", type="primary", disabled=not code_input.strip()
-)
+generate = st.button("Generate documentation", type="primary")
 
-if generate:
+if generate and not code_input.strip():
+    st.warning("Paste a function first.")
+
+if generate and code_input.strip():
     with st.spinner("Extracting signature, then writing docs..."):
         try:
             result = document_code(code_input)
